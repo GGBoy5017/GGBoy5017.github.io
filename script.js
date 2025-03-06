@@ -1,6 +1,6 @@
 const projects = [
-    { title: "个人简历", desc: "老板请捞我去上班吧，求求了", link: "XiangMu/00JianLi/index.html", img: "SuolveTu/00JianLi.png" },
-    { title: "React 组件库", desc: "自定义 UI 组件集合", link: "project2.html", img: "thumb2.png" },
+    { title: "个人简历", desc: "老板请捞我去上班吧，求求了", link: "XiangMu/00JianLi/index.html", img: "SuolveTu/00JianLi.jpg" },
+    { title: "线条小狗", desc: "按钮会变大，不得不同意", link: "XiangMu/01XianTiaoXiaoGou/index.html", img: "SuolveTu/01XianTiaoXiaoGou.gif" },
     { title: "Canvas 绘图工具", desc: "使用 JavaScript 操作 HTML5 Canvas", link: "project3.html", img: "thumb3.png" }
 ];
 
