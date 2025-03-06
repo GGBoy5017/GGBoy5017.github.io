@@ -1,7 +1,7 @@
 const projects = [
-    { title: "个人简历", desc: "老板请捞我去上班吧，求求了", link: "XiangMu/00JianLi/index.html", img: "SuoLveTu/00JianLi.jpg" },
-    { title: "线条小狗", desc: "按钮会变大，不得不同意", link: "XiangMu/01XianTiaoXiaoGou/index.html", img: "SuoLveTu/01XianTiaoXiaoGou.gif" },
-    { title: "Canvas 绘图工具", desc: "使用 JavaScript 操作 HTML5 Canvas", link: "project3.html", img: "thumb3.png" }
+    { title: "00个人简历", desc: "老板请捞我去上班吧，求求了", link: "XiangMu/00JianLi/index.html", img: "SuoLveTu/00JianLi.jpg" },
+    { title: "01线条小狗", desc: "按钮会变大，不得不同意", link: "XiangMu/01XianTiaoXiaoGou/index.html", img: "SuoLveTu/01XianTiaoXiaoGou.gif" },
+    { title: "02恋爱告急", desc: "谁说呆呆的就不能表白了，我就呆给你看", link: "XiangMu/02LianAiGaoJi/index.html", img: "SuoLveTu/02LianAiGaoJi.png" }
 ];
 
 const container = document.querySelector(".container");
