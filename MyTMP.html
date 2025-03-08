@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 视口设置，确保页面在移动设备上正常显示 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot Example</title>
+    <!-- 引入 html2canvas 库，用于实现页面截图功能 -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <!-- 定义要截图的目标元素 -->
+    <div id="screenshot-target" style="padding: 20px; background: #f5f5f5;">
+        <h1>Hello, World!</h1>
+        <p>This is the content to capture.</p>
+    </div>
+    <!-- 点击按钮触发截图操作 -->
+    <button onclick="takeScreenshot()">Take Screenshot</button>
+
+    <script>
+        function takeScreenshot() {
+            // 获取要截图的目标元素
+            const element = document.getElementById('screenshot-target');
+            // 使用 html2canvas 对目标元素进行截图
+            html2canvas(element).then(canvas => {
+                // 将 canvas 转换为 Base64 编码的图片数据
+                const img = canvas.toDataURL('image/png');
+                // 创建一个 <a> 元素用于下载图片
+                const link = document.createElement('a');
+                // 设置 <a> 元素的 href 属性为图片数据
+                link.href = img;
+                // 设置下载的文件名
+                link.download = 'screenshot.png';
+                // 模拟点击 <a> 元素，触发下载操作
+                link.click();
+            });
+        }
+    </script>
+</body>
+
+</html>

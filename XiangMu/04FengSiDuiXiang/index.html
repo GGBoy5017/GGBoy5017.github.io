@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我们的记忆盒子</title>
+    <style>
+        :root {
+            --primary-color: #ff7eb4;
+            --secondary-color: #6c5b7b;
+            --glass-effect: linear-gradient(120deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%);
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f8 0%, #f8f4ff 100%);
+            font-family: 'Microsoft YaHei', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* 响应式图片容器 */
+        .image-container {
+            position: relative;
+            max-width: 900px;
+            max-height: 1200px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;           /* 新增flex布局 */
+            justify-content: center; /* 水平居中 */
+            align-items: center;     /* 垂直居中 */
+
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: drop-shadow(0 4px 15px rgba(0,0,0,0.1));
+        }
+
+        /* 文字气泡增强 */
+        .text-bubble {
+            position: relative;
+            max-width: 80%;
+            margin: 2rem auto 3rem;  /* 下边距从auto改为3rem */
+            padding: 1.5rem 2rem;   /* 左右增加内边距 */
+            background: var(--glass-effect);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-bottom:150px;
+        }
+
+        .text-bubble::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--glass-effect);
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            z-index: -1;
+        }
+
+        .text-bubble p {
+            font-size: 2.5rem;
+            line-height: 1.8;
+            color: #5a4a6a;
+            text-shadow: 0 2px 4px rgba(255,255,255,0.5);
+            margin: 0.8rem 0;  /* 新增段落间距 */
+        }
+
+        /* 表情包动态布局 */
+        .emoji {
+            width: 160px;
+            height: 160px;
+            position: absolute;
+            bottom: -30px;
+            right: -20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            transition: transform 0.3s ease;
+        }
+
+        .emoji:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+       /* 导航容器增强 */
+       .nav-container {
+    position: fixed;         /* 固定定位在视口中 */
+    bottom: 40px;            /* 距离底部40像素 */
+    left: 50%;               /* 水平居中定位 */
+    transform: translateX(-50%); /* 精确水平居中 */
+    display: flex;           /* 弹性布局排列按钮 */
+    gap: 18px;               /* 按钮间距18像素 */
+    padding: 16px;           /* 内边距 */
+    background: rgba(255, 255, 255, 0.75); /* 75%透明度的白色背景 */
+    backdrop-filter: blur(20px) saturate(180%); /* 背景模糊和饱和度增强 */
+    border-radius: 24px;      /* 圆角半径 */
+    box-shadow:
+        0 12px 40px rgba(0,0,0,0.08),  /* 外阴影 */
+        inset 0 0 0 1px rgba(255,255,255,0.2); /* 内发光边框效果 */
+    border: 1px solid rgba(255,255,255,0.3); /* 半透明边框 */
+    min-width: 90vw;         /* 最小宽度为视口宽度60% */
+    justify-content: center; /* 子元素水平居中 */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1); /* 平滑动画过渡 */
+}
+
+/* 悬浮态容器动效 */
+.nav-container:hover {
+    transform: translateX(-50%) scale(1.02);
+    box-shadow:
+        0 16px 48px rgba(0,0,0,0.12),
+        inset 0 0 0 1px rgba(255,255,255,0.3);
+}
+
+/* 按钮质感升级 */
+.nav-container button {
+    padding: 18px 36px;            /* 按钮内边距：上下18px 左右36px */
+    border: none;                   /* 去除默认边框 */
+    background:
+        linear-gradient(145deg,     /* 145度渐变背景 */
+            rgba(255,255,255,0.9) 0%,   /* 顶部90%透明白 */
+            rgba(255,255,255,0.6) 100%);/* 底部60%透明白 */
+    color: var(--secondary-color);  /* 使用次级主题色 */
+    border-radius: 18px;            /* 圆角半径18px */
+    cursor: pointer;                /* 鼠标手型指针 */
+    transition:                     /* 多属性过渡动画 */
+        transform 0.3s ease,        /* 变形效果0.3秒缓动 */
+        box-shadow 0.3s ease,       /* 阴影变化0.3秒缓动 */
+        background 0.4s ease;       /* 背景渐变0.4秒缓动 */
+    font-weight: 600;               /* 中等加粗字体 */
+    letter-spacing: 0.5px;          /* 字间距扩大0.5px */
+    font-size: 2.2em;               /* 1.1倍基准字号 */
+    white-space: nowrap;            /* 禁止文字换行 */
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.05), /* 外阴影：柔和投影 */
+        inset 0 1px 0 rgba(255,255,255,0.8); /* 内阴影：顶部高光 */
+}
+
+/* 按钮悬浮态 */
+.nav-container button:hover {
+    background:
+        linear-gradient(145deg,
+            var(--primary-color) 0%,
+            #ff6fa5 100%);
+    color: white;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow:
+        0 6px 24px rgba(255,126,180,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+/* 按钮激活态 */
+.nav-container button:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .nav-container {
+        bottom: 20px;
+        padding: 12px;
+        min-width: 80vw;
+        gap: 12px;
+    }
+
+    .nav-container button {
+        padding: 14px 24px;
+        font-size: 0.95em;
+        border-radius: 14px;
+    }
+}
+
+        .page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    padding: 20px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+}
+
+.active-page {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+    </style>
+</head>
+<body>
+    <!-- 页面1：云端童话 -->
+    <section id="page1" class="page active-page">
+        <div class="image-container"><img src="images/BoLiQiao.jpg" alt="玻璃栈道" class="main-image"></div>
+        <div class="text-bubble">
+            <p>玻璃栈道上的小耳朵骑士，你站在云端回眸的瞬间，我的世界就定格成了最清澈的童话。纵使脚下万丈斑斓，只要有你攥着衣角，连心跳声都是最安心的节拍。</p>
+            <img src="images/cece.gif" class="emoji" alt="北极熊表情">
+        </div>
+    </section>
+
+    <!-- 页面2：温度记忆 -->
+    <section id="page2" class="page">
+        <div class="image-container"><img src="images/CheShangYangGuang.jpg" alt="毛衣时光" class="main-image"></div>
+        <div class="text-bubble">
+            <p>毛衣的褶皱藏着我们的温度，项链摇晃的微光里住着心跳的频率。即使车窗外的风景都虚化，你发梢卷起的弧度永远是我目光的锚点。</p>
+            <img src="images/qidai.gif" class="emoji" alt="垂耳兔表情">
+        </div>
+    </section>
+
+    <!-- 页面3：疗愈时刻 -->
+    <section id="page3" class="page">
+        <div class="image-container"> <img src="images/ShengBingNanShou.jpg" alt="疗愈时光" class="main-image"></div>
+        <div class="text-bubble">
+            <p>绷带裹不住你眼里的星河，这副眼镜倒映的，是我正在笨拙却坚定地学着把心跳缠成守护你的蝴蝶结。</p>
+            <img src="images/ShuiXing.gif" class="emoji" alt="猫咪表情">
+        </div>
+    </section>
+
+    <!-- 页面4：甜心魔法 -->
+    <section id="page4" class="page">
+        <div class="image-container"><img src="images/DanGaoBiXin.jpg" alt="爱心蛋糕" class="main-image"></div>
+        <div class="text-bubble">
+            <p>你指尖的爱心魔法刚点亮这个角落，Hello Kitty的甜度就输了三分——原来蕾丝褶皱里藏着的，是我们用晚安吻称量过温柔时光。</p>
+            <img src="images/SongHua.gif" class="emoji" alt="蛋糕猫表情">
+        </div>
+    </section>
+
+
+    <!-- 底部导航 -->
+    <nav class="nav-container">
+        <button onclick="showPage(1)">云端童话</button>
+        <button onclick="showPage(2)">温度记忆</button>
+        <button onclick="showPage(3)">疗愈时刻</button>
+        <button onclick="showPage(4)">甜心魔法</button>
+    </nav>
+
+    <script>
+
+        // 页面切换逻辑
+        function showPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            document.getElementById(`page${pageNumber}`).classList.add('active-page');
+        }
+
+        // 初始化特效
+        document.querySelectorAll('.text-bubble').forEach(bubble => {
+            bubble.style.background = 'linear-gradient(45deg, rgba(255,255,255,0.8), rgba(255,255,255,0.3))';
+        });
+
+        document.body.addEventListener('mousemove', (e) => {
+    const particles = document.createElement('div');
+    particles.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: ${Math.random() > 0.5 ? 'var(--primary-color)' : 'var(--secondary-color)'};
+        border-radius: 50%;
+        pointer-events: none;
+        left: ${e.pageX}px;
+        top: ${e.pageY}px;
+        transition: transform 0.3s, opacity 1s;
+    `;
+    document.body.appendChild(particles);
+
+    setTimeout(() => {
+        particles.style.transform = 'scale(2)';
+        particles.style.opacity = '0';
+        setTimeout(() => particles.remove(), 1000);
+    }, 50);
+});
+
+
+
+    </script>
+</body>
+</html>
